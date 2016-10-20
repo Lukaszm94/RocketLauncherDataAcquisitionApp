@@ -51,7 +51,7 @@ void PacketReceiver::onNewDataReceived(QByteArray data)
 	if(buffer.size() == PACKET_SIZE) {
 		unpackBufferData();
 		if(packet.verifyCRC() == 0) {
-			//qDebug() << "PacketReceiver: received valid packet";
+			qDebug() << "PacketReceiver: received valid packet";
 			validPacketCounter++;
 			lastValidPacketTimestamp = QTime::currentTime().msecsSinceStartOfDay();
 			emit validPacketReceived();

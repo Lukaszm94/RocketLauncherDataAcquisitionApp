@@ -7,6 +7,8 @@ GUIPacket::GUIPacket(Packet packet_)
 {
 	gustSpeed = averageWindSpeed = 0.0;
 	validPacketsCount = invalidPacketsCount = 0;
+	batteryCharge = 0.0;
+	batteryTimeLeft = 0;
 	compassOffset = DefaultValues::getCompassOffset();
 	packet = packet_;
 	lifeStartTime = QTime::currentTime();
