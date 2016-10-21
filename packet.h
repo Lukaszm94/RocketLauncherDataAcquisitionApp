@@ -47,6 +47,7 @@ class Packet
 {
 public:
 	Packet();
+	Packet(PacketStruct packetStruct);
 	void setLongitude(int32_t lon);
 	void setLatitude(int32_t lat);
 	void setRailAngle(float angle); // in degrees

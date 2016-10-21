@@ -98,6 +98,7 @@ QString GUIPacket::getWindDirection()
 {
 	QString directions[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
 	int directionIndex = (int) packet.getWindDirection();
+	//qDebug() << "GUIPacket::getWindDirection(): direction index: " << directionIndex;
 	if(directionIndex > sizeof(directions) || directionIndex < 0) {
 		qDebug() << "GUIPacket::getWindDirection(): wrong direction index= " << directionIndex;
 		directionIndex = 0;

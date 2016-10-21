@@ -48,20 +48,6 @@ void SerialManager::onReadyRead()
 		return;
 	}
 	emit onNewDataReady(serialPort->readAll());
-	/*int bytesAvailable = serialPort.bytesAvailable();
-		qDebug() << bytesAvailable << " bytes available";
-		char buffer[BUFFER_SIZE + 1];
-		if(bytesAvailable == PACKET_SIZE) {
-			int readBytes = serialPort.read(buffer, BUFFER_SIZE);
-			qDebug() << readBytes << "bytes loaded into the buffer:";
-			hexdump(buffer, BUFFER_SIZE);
-			memcpy(buffer + 12, buffer + 10, 16);
-			buffer[10] = buffer[11] = 0;
-			qDebug() << "After memory shifting:";
-			hexdump(buffer, BUFFER_SIZE);
-			packet.loadPacketData(buffer);
-			printPacket();
-		}*/
 }
 
 void SerialManager::onSerialPortError(QSerialPort::SerialPortError error)
@@ -69,5 +55,6 @@ void SerialManager::onSerialPortError(QSerialPort::SerialPortError error)
 	if(error == QSerialPort::NoError) {
 		return;
 	}
-	//TODO
+	QString str = QString::number((int)error);
+	emit serialPortError(str);
 }

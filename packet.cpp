@@ -61,6 +61,12 @@ Packet::Packet()
 	isCRCUpToDate = false;
 }
 
+Packet::Packet(PacketStruct packetStruct)
+{
+	packet = packetStruct;
+	isCRCUpToDate = false;
+}
+
 void Packet::setLongitude(int32_t lon)
 {
 	packet.longitude = lon;
