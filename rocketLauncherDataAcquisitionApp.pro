@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     settingswidget.cpp \
     defaultvalues.cpp \
     batterychargecalculator.cpp \
-    linearfunction.cpp
+    linearfunction.cpp \
+    settingsmanager.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -54,7 +55,9 @@ HEADERS  += mainwindow.h \
     settingswidget.h \
     defaultvalues.h \
     batterychargecalculator.h \
-    linearfunction.h
+    linearfunction.h \
+    settings.h \
+    settingsmanager.h
 
 win32:CONFIG(release, debug|release): LIBS += -LD:/Libraries/Software/qwt-6.1.2/lib/ -lqwt
 else:win32:CONFIG(debug, debug|release): LIBS += -LD:/Libraries/Software/qwt-6.1.2/lib/ -lqwtd

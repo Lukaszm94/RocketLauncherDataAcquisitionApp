@@ -25,6 +25,11 @@ bool DefaultValues::getAutomaticLogSavingEnabled()
 	return false;
 }
 
+QString DefaultValues::getAutomaticLogSavingFolderPath()
+{
+	return "";
+}
+
 double DefaultValues::getCompassOffset()
 {
 	return 0.0;

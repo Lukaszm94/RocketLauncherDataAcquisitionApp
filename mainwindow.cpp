@@ -139,3 +139,8 @@ void MainWindow::onSettingsChanged()
 {
 	emit settingsChanged();
 }
+
+SettingsWidget *MainWindow::getSettingsWidget()
+{
+	return settingsWidget;
+}

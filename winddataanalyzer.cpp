@@ -1,12 +1,15 @@
 #include "winddataanalyzer.h"
 #include <QDebug>
 #include "defaultvalues.h"
+#include "settingsmanager.h"
+
+extern SettingsManager settingsManager;
 
 WindDataAnalyzer::WindDataAnalyzer()
 {
 	time.start();
-	averageSpeedCalculationTimeRange = DefaultValues::getAverageSpeedCalculationTimeRange();
-	gustSpeedCalculationTimeRange = DefaultValues::getGustSpeedCalculationTimeRange();
+	averageSpeedCalculationTimeRange = settingsManager.getSettings().averageSpeedCalculationTimeRange;
+	gustSpeedCalculationTimeRange = settingsManager.getSettings().gustSpeedCalculationTimeRange;
 }
 
 void WindDataAnalyzer::addNewWindSpeed(float speed)

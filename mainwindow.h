@@ -30,6 +30,7 @@ public:
 	QString getAutomaticLogSavingFolderPath();
 	QString getSaveLogFilePath();
 	double getCompassOffset();
+	SettingsWidget* getSettingsWidget();
 
 private slots:
 	void onConnectSerialButtonClicked(QString portName);

@@ -1,6 +1,6 @@
 #ifndef DEFAULTVALUES_H
 #define DEFAULTVALUES_H
-
+#include <QString>
 
 class DefaultValues
 {
@@ -10,6 +10,8 @@ public:
 	static int getGustSpeedCalculationTimeRange();
 	static int getAutomaticLogSavingIntervalS();
 	static bool getAutomaticLogSavingEnabled();
+	static QString getAutomaticLogSavingFolderPath();
+
 	static double getCompassOffset();
 };
 

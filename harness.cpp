@@ -2,12 +2,17 @@
 #include <QTime>
 #include "guipacket.h"
 #include "helperfunctions.h"
+#include "settingsmanager.h"
 
 #define SYSTEM_TIMER_INTERVAL_MS 500
 #define MAX_PACKET_INTERVAL_MS 1200
 
+extern SettingsManager settingsManager;
+
 Harness::Harness(QObject *parent) : QObject(parent)
 {
+	settingsManager.loadSavedSettings();
+
 	gui = new MainWindow;
 	serialManager = new SerialManager;
 	packetReceiver = new PacketReceiver;
@@ -28,6 +33,7 @@ Harness::Harness(QObject *parent) : QObject(parent)
 	connect(gui, SIGNAL(settingsChanged()), this, SLOT(onSettingsChanged()));
 	connect(systemTimer, SIGNAL(timeout()), this, SLOT(onSystemTimerTimeout()));
 
+	compassOffset = settingsManager.getSettings().compassOffset;
 	loadGUIDefaultValues();
 	gui->show();
 	systemTimer->start(SYSTEM_TIMER_INTERVAL_MS);
@@ -119,12 +125,14 @@ void Harness::onSerialPortError(QString errorMessage)
 void Harness::onSettingsChanged()
 {
 	qDebug() << "Harness::onSettingsChanged()";
-	windDataAnalyzer->setAverageSpeedCalculationTimeRange(gui->getAverageSpeedCalculationTimeRange());
-	windDataAnalyzer->setGustSpeedCalculationTimeRange(gui->getGustSpeedCalculationTimeRange());
-	dataLogger->enableAutomaticSaving(gui->getAutomaticLogSavingEnabled());
-	dataLogger->setAutomaticSavingInterval(gui->getAutomaticLogSavingIntervalS());
-	dataLogger->setAutomaticSavingFolderPath(gui->getAutomaticLogSavingFolderPath());
-	compassOffset = gui->getCompassOffset();
+	settingsManager.updateSettings(gui->getSettingsWidget());
+	settingsManager.saveSettings();
+	windDataAnalyzer->setAverageSpeedCalculationTimeRange(settingsManager.getSettings().averageSpeedCalculationTimeRange);
+	windDataAnalyzer->setGustSpeedCalculationTimeRange(settingsManager.getSettings().gustSpeedCalculationTimeRange);
+	dataLogger->enableAutomaticSaving(settingsManager.getSettings().automaticLogSavingEnabled);
+	dataLogger->setAutomaticSavingInterval(settingsManager.getSettings().automaticLogSavingIntervalS);
+	dataLogger->setAutomaticSavingFolderPath(settingsManager.getSettings().automaticLogSavingFolderPath);
+	compassOffset = settingsManager.getSettings().compassOffset;
 }
 
 void Harness::loadGUIDefaultValues()
