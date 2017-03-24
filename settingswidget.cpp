@@ -1,6 +1,9 @@
 #include "settingswidget.h"
 #include <QDebug>
 #include "defaultvalues.h"
+#include "settingsmanager.h"
+
+extern SettingsManager settingsManager;
 
 SettingsWidget::SettingsWidget(QWidget *parent) : QWidget(parent)
 {
@@ -73,12 +76,11 @@ SettingsWidget::SettingsWidget(QWidget *parent) : QWidget(parent)
 	connect(applyButton, SIGNAL(clicked(bool)), this, SLOT(onApplyButtonClicked()));
 	connect(enableAutomaticLogSavingCheckbox, SIGNAL(toggled(bool)), automaticLogSavingIntervalSLineEdit, SLOT(setEnabled(bool)));
 	connect(automaticLogSavingFolderPathButton, SIGNAL(clicked()), this, SLOT(onBrowseAutomaticLogSavingFolderPathClicked()));
-	averageSpeedCalculationTimeRangeLineEdit->setText(QString::number(DefaultValues::getAverageSpeedCalculationTimeRange()));
-	gustSpeedCalculationTimeRangeLineEdit->setText(QString::number(DefaultValues::getGustSpeedCalculationTimeRange()));
-	automaticLogSavingIntervalSLineEdit->setText(QString::number(DefaultValues::getAutomaticLogSavingIntervalS()));
-	enableAutomaticLogSavingCheckbox->setChecked(DefaultValues::getAutomaticLogSavingEnabled());
-	automaticLogSavingIntervalSLineEdit->setEnabled(DefaultValues::getAutomaticLogSavingEnabled());
-	compassOffsetLineEdit->setText(QString::number(DefaultValues::getCompassOffset()));
+	averageSpeedCalculationTimeRangeLineEdit->setText(QString::number(settingsManager.getSettings().averageSpeedCalculationTimeRange));
+	gustSpeedCalculationTimeRangeLineEdit->setText(QString::number(settingsManager.getSettings().gustSpeedCalculationTimeRange));
+	automaticLogSavingIntervalSLineEdit->setText(QString::number(settingsManager.getSettings().automaticLogSavingIntervalS));
+	enableAutomaticLogSavingCheckbox->setChecked(settingsManager.getSettings().automaticLogSavingEnabled);
+	compassOffsetLineEdit->setText(QString::number(settingsManager.getSettings().compassOffset));
 	averageSpeedCalculationTimeRangeLineEdit->setFixedWidth(60);
 	gustSpeedCalculationTimeRangeLineEdit->setFixedWidth(60);
 	automaticLogSavingIntervalSLineEdit->setFixedWidth(60);

@@ -13,6 +13,7 @@ DataLogger::DataLogger(QObject *parent) : QObject(parent)
 	automaticSavingIntervalS = settingsManager.getSettings().automaticLogSavingIntervalS;
 	automaticSaveTimer->setInterval(settingsManager.getSettings().automaticLogSavingIntervalS * 1000);
 
+	enableAutomaticSaving(automaticSavingEnabled);
 	connect(automaticSaveTimer, SIGNAL(timeout()), this, SLOT(onAutomaticSaveTimerTimeout()));
 }
 
@@ -91,7 +92,11 @@ void DataLogger::onAutomaticSaveTimerTimeout()
 	qDebug() << "DataLogger::onAutomaticSaveTimerInterrupt()";
 	QString fileName = "log_autosave_" + QTime::currentTime().toString() + ".csv";
 	fileName.replace(':', '_');
-	QString fullPath = automaticSavingFolderPath + "/" + fileName;
+	QString fullPath = automaticSavingFolderPath;
+	if(!automaticSavingFolderPath.isEmpty()) {
+		fullPath += "/";
+	}
+	fullPath += fileName;
 	qDebug() << "File with pathname: " << fullPath;
 	if(saveBufferToFile(fullPath, buffer)) {
 		qDebug() << "Automatic save OK";
