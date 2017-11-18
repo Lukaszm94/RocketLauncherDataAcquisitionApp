@@ -62,8 +62,9 @@ HEADERS  += mainwindow.h \
 win32:CONFIG(release, debug|release): LIBS += -LD:/Libraries/Software/qwt-6.1.2/lib/ -lqwt
 else:win32:CONFIG(debug, debug|release): LIBS += -LD:/Libraries/Software/qwt-6.1.2/lib/ -lqwtd
 
-INCLUDEPATH += D:/Libraries/Software/qwt-6.1.2/include
-#INCLUDEPATH += C:/qwt-6.1.2/include
-#LIBS += -LC:/qwt-6.1.2/lib/ -lqwt
+!win32 {
+    LIBS += -lqwt
+}
+
 RESOURCES += \
     img.qrc
